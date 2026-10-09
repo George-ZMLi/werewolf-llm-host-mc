@@ -14,7 +14,8 @@ export class Orchestrator {
   /** True while runUntilDone is executing. */
   isRunning = false;
 
-  private readonly state: EngineState;
+  /** Public so the transport layer can build room snapshots and re-syncs (task 9). */
+  readonly state: EngineState;
   private readonly adapter: SeatAdapter;
   private readonly host: HostAgent;
   private readonly onEvent: (e: Event) => void;
