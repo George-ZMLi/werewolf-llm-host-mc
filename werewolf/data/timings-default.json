@@ -1,0 +1,22 @@
+{
+  "budgetMs": {
+    "lobby": 300000,
+    "night": 120000,
+    "dawn": 30000,
+    "day_discussion": 180000,
+    "voting": 90000,
+    "finished": 0
+  },
+  "softWarnMs": {
+    "lobby": 30000,
+    "night": 20000,
+    "dawn": 5000,
+    "day_discussion": 30000,
+    "voting": 15000
+  },
+  "hostNudge": {
+    "enabled": true,
+    "minMsgPerMin": 2,
+    "silenceThresholdSec": 20
+  }
+}

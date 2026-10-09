@@ -1,0 +1,60 @@
+[
+  {
+    "id": "werewolf",
+    "name": "狼人",
+    "faction": "villain",
+    "min": 2,
+    "max": 2,
+    "night": {
+      "order": 1,
+      "action": "target_player",
+      "targets": 1,
+      "maxTargets": 1,
+      "promptTemplateId": "werewolf_night"
+    }
+  },
+  {
+    "id": "seer",
+    "name": "预言家",
+    "faction": "villager",
+    "min": 1,
+    "max": 1,
+    "night": {
+      "order": 2,
+      "action": "observe",
+      "targets": 1,
+      "maxTargets": 1,
+      "promptTemplateId": "seer_night"
+    }
+  },
+  {
+    "id": "witch",
+    "name": "女巫",
+    "faction": "villager",
+    "min": 1,
+    "max": 1,
+    "night": {
+      "order": 3,
+      "action": "protect",
+      "targets": 1,
+      "maxTargets": 1,
+      "promptTemplateId": "witch_night"
+    }
+  },
+  {
+    "id": "hunter",
+    "name": "猎人",
+    "faction": "villager",
+    "min": 1,
+    "max": 1,
+    "day": { "action": "speak", "promptTemplateId": "hunter_day" }
+  },
+  {
+    "id": "villager",
+    "name": "村民",
+    "faction": "villager",
+    "min": 1,
+    "max": 8,
+    "day": { "action": "speak", "promptTemplateId": "villager_day" }
+  }
+]
