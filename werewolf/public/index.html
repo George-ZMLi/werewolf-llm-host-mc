@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Werewolf LLM Host</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; background: #101418; color: #e8eaed; }
+    .app { max-width: 900px; margin: 0 auto; padding: 16px; display: grid; gap: 12px; }
+    .phase-banner { display: flex; justify-content: space-between; padding: 8px 12px; background: #1c2330; border-radius: 8px; font-size: 1.1em; }
+    ul.seat-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+    li.seat { padding: 4px 10px; background: #1c2330; border-radius: 16px; }
+    li.seat.offline { opacity: 0.5; }
+    li.seat.acting { outline: 2px solid #77aacc; }
+    #log { height: 300px; overflow-y: auto; background: #0b0e12; border-radius: 8px; padding: 8px; font-family: monospace; font-size: 0.85em; white-space: pre-wrap; }
+    .row { display: flex; gap: 8px; }
+    input, textarea { background: #1c2330; color: #e8eaed; border: 1px solid #2c3a4f; border-radius: 6px; padding: 6px; }
+    input { flex: 1; }
+    button { background: #2c3a4f; color: #e8eaed; border: 0; border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+    .draft-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; }
+    .draft-box { background: #1c2330; padding: 16px; border-radius: 8px; display: grid; gap: 8px; width: 420px; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div id="banner" class="phase-banner"><span class="phase">Connecting&hellip;</span></div>
+    <div id="seats"></div>
+    <div id="log"></div>
+    <div class="row">
+      <input id="speech" placeholder="Your speech, or a vote target like s2" />
+      <button id="send">Send</button>
+    </div>
+  </div>
+  <div id="draft-root"></div>
+  <script type="module">
+    import { boot, createBrowserClient } from './app.js';
+    const wsProto = location.protocol === 'https:' ? 'wss' : 'ws';
+    const client = createBrowserClient(wsProto + '://' + location.host + '/');
+    boot({ client, root: document, roomId: 'default', name: 'Player' });
+  </script>
+</body>
+</html>
