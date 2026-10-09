@@ -130,5 +130,7 @@ export interface AgentPromptContext {
   /** Events whose visibleTo includes this seat (already filtered — never trust a caller). */
   privateLog: Event[];
   aliveSeats: SeatState[];
+  /** The acting seat's own id (for self-target checks in fallbacks). */
+  selfSeatId: string;
   persona?: string;
 }
