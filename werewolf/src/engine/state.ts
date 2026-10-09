@@ -114,12 +114,21 @@ export class EngineState {
     this.enter('voting');
   }
 
-  /** night→dawn→day_discussion→voting→night (spec §2.3). No-op when finished. */
+  /**
+   * night→dawn→day_discussion→voting→night (spec §2.3). No-op when finished.
+   * Delegates to the phase's start method so per-cycle state (nightPending,
+   * currentVotes) is reset exactly as when the start method is called directly.
+   */
   advancePhase(): GamePhase {
     if (this.phase === 'finished') return this.phase;
     const idx = PHASE_CYCLE.indexOf(this.phase);
     if (idx === -1) throw new Error(`cannot advance from phase ${this.phase}`);
-    this.enter(PHASE_CYCLE[(idx + 1) % PHASE_CYCLE.length]);
+    switch (PHASE_CYCLE[(idx + 1) % PHASE_CYCLE.length]) {
+      case 'night': this.startNight(); break;
+      case 'dawn': this.startDawn(); break;
+      case 'day_discussion': this.startDayDiscussion(); break;
+      case 'voting': this.startVoting(); break;
+    }
     return this.phase;
   }
 

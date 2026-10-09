@@ -43,6 +43,22 @@ describe('EngineState phase machine', () => {
     expect(s.phase).toBe('dawn');
   });
 
+  it('advancePhase into voting clears the previous ballot (fresh currentVotes)', () => {
+    let t = 1_000_000;
+    const s = new EngineState(makeSeats(3), TIMINGS, createSeededRng(1), () => t);
+    s.startNight();
+    s.startDawn();
+    s.startDayDiscussion();
+    s.startVoting();
+    s.currentVotes.set('s0', 's1');
+    s.advancePhase(); // voting -> night
+    s.advancePhase(); // night -> dawn
+    s.advancePhase(); // dawn -> day_discussion
+    s.advancePhase(); // day_discussion -> voting
+    expect(s.phase).toBe('voting');
+    expect(s.currentVotes.size).toBe(0);
+  });
+
   it('startNight resets phaseStartedAt to the injected clock', () => {
     let t = 5000;
     const s = new EngineState(makeSeats(9), TIMINGS, createSeededRng(1), () => t);
